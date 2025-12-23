@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Najwa ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* OPENING VIDEO */
+#opening {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+}
+
+#opening video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.enter {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 14px 40px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.9);
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* MAIN */
+body {
+    background: url('https://wallpaperaccess.com/full/3014707.jpg') center/cover fixed;
+    height: 100vh;
+    overflow: hidden;
+    color: white;
+}
+
+.overlay {
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+}
+
+/* HOME */
+.home {
+    position: relative;
+    z-index: 2;
+    height: 100vh;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.home h1 {
+    font-size: 3em;
+}
+
+.buttons {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+button {
+    padding: 14px 28px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #222;
+    font-weight: 600;
+    transition: .4s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255,255,255,.6);
+}
+
+/* POPUP */
+.popup {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+.slide {
+    width: 80%;
+    max-width: 900px;
+    height: 75%;
+    border-radius: 20px;
+    background: url('https://wallpaperaccess.com/full/3014715.jpg') center/cover;
+    padding: 40px;
+    text-align: center;
+    animation: fade .6s;
+}
+
+@keyframes fade {
+    from {opacity: 0; transform: scale(.8);}
+    to {opacity: 1;}
+}
+
+.nav {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+audio { display: none; }
+</style>
+</head>
+
+<body>
+
+<!-- OPENING -->
+<div id="opening">
+    <video autoplay muted>
+        <source src="opening.mp4" type="video/mp4">
+    </video>
+    <button class="enter" onclick="enterSite()">Masuk ke Cerita ✨</button>
+</div>
+
+<div class="overlay"></div>
+
+<!-- HOME -->
+<div class="home" id="home">
+    <h1>Happy Birthday Najwa ✨</h1>
+    <p>23 Desember • Seperti Takdir di Langit Senja</p>
+
+    <div class="buttons">
+        <button onclick="openSlide(0)">✨ Harapan</button>
+        <button onclick="openSlide(1)">🌸 Kenangan</button>
+        <button onclick="openSlide(2)">🌌 Takdir</button>
+        <button onclick="openSlide(3)">💫 Impian</button>
+        <button onclick="openSlide(4)">🎆 Masa Depan</button>
+        <button onclick="openSlide(5)">❤️ Pesan</button>
+    </div>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+    <div class="slide">
+        <h2 id="title"></h2>
+        <p id="text"></p>
+        <div class="nav">
+            <button onclick="nextSlide()">Next ➜</button>
+            <button onclick="closeSlide()">🏠 Home</button>
+        </div>
+    </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+    <source src="sparkle.mp3" type="audio/mp3">
+</audio>
+
+<script>
+let slides = [
+    {title:"Harapan", text:"Semoga semesta selalu berpihak pada langkahmu."},
+    {title:"Kenangan", text:"Setiap kenangan kecil membentuk cerita indah hidupmu."},
+    {title:"Takdir", text:"Takdir mempertemukan waktu, mimpi, dan doa."},
+    {title:"Impian", text:"Bermimpilah setinggi langit Kimi no Na wa."},
+    {title:"Masa Depan", text:"Langit senja menjadi saksi langkahmu."},
+    {title:"Pesan", text:"Selamat ulang tahun Najwa. Teruslah bersinar."}
+];
+
+let index = 0;
+
+function enterSite() {
+    document.getElementById('opening').style.display = 'none';
+    document.getElementById('home').style.display = 'flex';
+    document.getElementById('music').play();
+}
+
+function openSlide(i) {
+    index = i;
+    document.getElementById('popup').style.display = 'flex';
+    updateSlide();
+}
+
+function updateSlide() {
+    title.innerText = slides[index].title;
+    text.innerText = slides[index].text;
+}
+
+function nextSlide() {
+    index = (index + 1) % slides.length;
+    updateSlide();
+}
+
+function closeSlide() {
+    document.getElementById('popup').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
